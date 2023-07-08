@@ -1,6 +1,6 @@
 
 class Node<T> {
-  final T value;
+  T value;
   Node<T>? prev;
   Node<T>? next;
 
@@ -46,8 +46,12 @@ class LRU<K, V> {
       _lookUp[key] = node;
       _reverselookUp[node] = key;
     } else {
+      _reverselookUp.remove(node);
       _detach(node);
       _prepend(node);
+      node.value = value;
+      _lookUp[key] = node;
+      _reverselookUp[node] = key;
     }
   }
 
